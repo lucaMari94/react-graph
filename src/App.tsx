@@ -1,13 +1,12 @@
 import * as React from 'react';
-import { StyledEngineProvider } from '@mui/material/styles';
-import Demo from './UI/Demo';
+import GraphRender from './UI/GraphRender';
+import { SearchAppBar } from './UI/AppBar';
 
 function App() {
   return (
     <React.StrictMode>
-    <StyledEngineProvider injectFirst>
-      <Demo />
-    </StyledEngineProvider>
+      <SearchAppBar></SearchAppBar>
+      <GraphRender></GraphRender>
   </React.StrictMode>
   );
 }
