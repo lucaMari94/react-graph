@@ -1,14 +1,16 @@
-import cytoscape, { EventObject } from "cytoscape"
+import cytoscape, { Core, EventObject } from "cytoscape"
 import { FC, Fragment, useCallback, useEffect, useRef } from "react"
 
 interface GraphRenderProps{}
 
 const GraphRender:FC<GraphRenderProps> = (props:GraphRenderProps) => {
 
+    let cy:Core;
+
     const graphRef = useRef(null)
    
     const drawGraph = () => {
-      const cy = cytoscape({
+      cy = cytoscape({
         container: graphRef.current,
         elements: [
           { data: { id: 'gryffindor'} },
@@ -91,6 +93,7 @@ const GraphRender:FC<GraphRenderProps> = (props:GraphRenderProps) => {
       httpCall(evt.target.id())
         .then((res)=>{
           console.log(res);
+          
         })
         .catch((error) => {
           console.error(error);
