@@ -112,7 +112,7 @@ const GraphRender:FC<GraphRenderProps> = (props:GraphRenderProps) => {
     };
     
     useEffect(() => {
-     drawGraph()
+     // drawGraph()
     }, [])
    
     return (
