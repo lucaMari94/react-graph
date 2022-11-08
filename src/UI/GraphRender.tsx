@@ -17,13 +17,6 @@ const GraphRender:FC<GraphRenderProps> = (props:GraphRenderProps) => {
           { data: { id: 'hufflepuff' } },
           { data: { id: 'ravenclaw' } },
           { data: { id: 'slytherin' } },
-          /*{
-            data: {
-              id: 'ab',
-              source: 'gryffindor',
-              target: 'hufflepuff'
-            }
-          }*/
         ],
         style: [
           {
@@ -34,11 +27,23 @@ const GraphRender:FC<GraphRenderProps> = (props:GraphRenderProps) => {
               "text-background-color": "white"
             }
           },
+          {
+            "selector": ".autorotate",
+            "style": {
+                "font-size": 10,
+                "source-text-rotation": "autorotate",
+                "target-text-rotation": "autorotate",
+                "source-text-offset": 50,
+                "target-text-offset": 50,
+                "text-background-shape":"rectangle",
+                "text-background-color":"#000000",
+                "text-background-opacity":1
+            }
+          }
         ],
 
         layout: {
-          name: 'grid',
-          rows: 1
+          name: 'cose',
         },
         // initial viewport state:
         zoom: 1,
@@ -70,7 +75,7 @@ const GraphRender:FC<GraphRenderProps> = (props:GraphRenderProps) => {
         wheelSensitivity: 1,
         pixelRatio: 'auto'
       })
-
+      cy.layout({name: 'cose'}).run();
       cy.on('tap', 'node', function(evt){
         // var node = evt.target;
         // console.log( 'tapped ' + node.id() );
@@ -93,7 +98,13 @@ const GraphRender:FC<GraphRenderProps> = (props:GraphRenderProps) => {
       httpCall(evt.target.id())
         .then((res)=>{
           console.log(res);
-          
+          res.forEach((element: any, index: number) => {
+            cy.add([
+              {group: 'nodes',data: { id: element.name },}, 
+              {group: 'edges', data: { id: index.toString(), source: evt.target.id(), target: element.name }, classes:'autorotate' }
+            ]);
+            cy.layout({name: 'cose'}).run();
+        });
         })
         .catch((error) => {
           console.error(error);
