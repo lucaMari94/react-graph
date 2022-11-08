@@ -1,5 +1,5 @@
-import cytoscape from "cytoscape"
-import { FC, Fragment, useEffect, useRef } from "react"
+import cytoscape, { EventObject } from "cytoscape"
+import { FC, Fragment, useCallback, useEffect, useRef } from "react"
 
 interface GraphRenderProps{}
 
@@ -7,7 +7,6 @@ const GraphRender:FC<GraphRenderProps> = (props:GraphRenderProps) => {
 
     const graphRef = useRef(null)
    
-    // https://hp-api.herokuapp.com/
     const drawGraph = () => {
       const cy = cytoscape({
         container: graphRef.current,
@@ -71,11 +70,33 @@ const GraphRender:FC<GraphRenderProps> = (props:GraphRenderProps) => {
       })
 
       cy.on('tap', 'node', function(evt){
-        var node = evt.target;
-        console.log( 'tapped ' + node.id() );
+        // var node = evt.target;
+        // console.log( 'tapped ' + node.id() );
+        nodeClickHandler(evt);
       });
     }
-   
+    
+    const httpCall = async (house: string) => {
+      const url: string = "https://hp-api.herokuapp.com/api/characters/house/"+house;
+      const httpResponse: Response = await fetch(url, { mode: "cors" });
+      if (httpResponse.status !== 200) {
+        throw new Error( "House '" + house +"' not exist.");
+      }
+      return (await httpResponse.json());
+    };
+
+    const nodeClickHandler = (evt:EventObject) => {
+      console.log(evt.target.id());
+      evt.preventDefault();
+      httpCall(evt.target.id())
+        .then((res)=>{
+          console.log(res);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    };
+    
     useEffect(() => {
      drawGraph()
     }, [])
