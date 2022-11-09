@@ -8,16 +8,21 @@ const GraphRender:FC<GraphRenderProps> = (props:GraphRenderProps) => {
 
     let cytoscape:any;
 
-    const graphRef = useRef(null)
+    const graphRef = useRef<Cytoscape>();
    
+    const cyContainerRef = useCallback((cyContainer:HTMLDivElement)=>{
+      if(cyContainer!==null){
+        graphRef.current = new Cytoscape(cyContainer);
+      }
+    },[])
+
     const drawGraph = () => {
-      cytoscape = new Cytoscape(graphRef);
       // cytoscape.cy.layout({name: 'grid'}).run();
-      cytoscape.cy.on('tap', 'node', function(evt: EventObject){
+      /*cytoscape.on('tap', 'node', function(evt: EventObject){
           // var node = evt.target;
           // console.log( 'tapped ' + node.id() );
           nodeClickHandler(evt);
-      });
+      });*/
     }
     
     const httpCall = async (house: string) => {
@@ -44,7 +49,7 @@ const GraphRender:FC<GraphRenderProps> = (props:GraphRenderProps) => {
                                       classes:'autorotate' 
                                     }
             ]);
-            cytoscape.cy.layout({name: 'breadthfirst'}).run();
+            cytoscape.cy.layout(cytoscape.layoutOptions).run();
         });
         })
         .catch((error) => {
@@ -58,7 +63,7 @@ const GraphRender:FC<GraphRenderProps> = (props:GraphRenderProps) => {
    
     return (
      <Fragment>
-        <div ref={graphRef} style={{backgroundColor: 'black', width: '100%', height: '90vh'}}></div>
+        <div ref={cyContainerRef} style={{backgroundColor: 'black', width: '100%', height: '90vh'}}></div>
      </Fragment>
     )
    }
