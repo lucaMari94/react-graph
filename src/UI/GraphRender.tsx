@@ -6,23 +6,24 @@ interface GraphRenderProps{}
 
 const GraphRender:FC<GraphRenderProps> = (props:GraphRenderProps) => {
 
-    let cytoscape:any;
+    let cytoscape:Cytoscape;
 
     const graphRef = useRef<Cytoscape>();
    
     const cyContainerRef = useCallback((cyContainer:HTMLDivElement)=>{
       if(cyContainer!==null){
-        graphRef.current = new Cytoscape(cyContainer);
+        cytoscape = new Cytoscape(cyContainer);
+        graphRef.current = cytoscape;
       }
     },[])
 
     const drawGraph = () => {
       // cytoscape.cy.layout({name: 'grid'}).run();
-      /*cytoscape.on('tap', 'node', function(evt: EventObject){
+      cytoscape.cy.on('tap', 'node', function(evt: EventObject){
           // var node = evt.target;
           // console.log( 'tapped ' + node.id() );
           nodeClickHandler(evt);
-      });*/
+      });
     }
     
     const httpCall = async (house: string) => {
@@ -36,10 +37,8 @@ const GraphRender:FC<GraphRenderProps> = (props:GraphRenderProps) => {
 
     const nodeClickHandler = (evt:EventObject) => {
       evt.preventDefault();
-      console.log(evt.target.id());
       httpCall(evt.target.id())
         .then((res)=>{
-          console.log(res);
           res.forEach((element: any, index: number) => {
             cytoscape.cy.add([
               {group: 'nodes',data: { id: element.name },}, 
@@ -58,7 +57,7 @@ const GraphRender:FC<GraphRenderProps> = (props:GraphRenderProps) => {
     };
     
     useEffect(() => {
-      drawGraph()
+      // drawGraph()
     }, [])
    
     return (
