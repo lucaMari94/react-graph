@@ -14,18 +14,12 @@ const GraphRender:FC<GraphRenderProps> = (props:GraphRenderProps) => {
       if(cyContainer!==null){
         cytoscape = new Cytoscape(cyContainer);
         graphRef.current = cytoscape;
-      }
-    },[])
-
-    const drawGraph = () => {
-      // cytoscape.cy.layout({name: 'grid'}).run();
-      cytoscape.cy.on('tap', 'node', function(evt: EventObject){
-          // var node = evt.target;
-          // console.log( 'tapped ' + node.id() );
+        cytoscape.cy.on('tap', 'node', function(evt: EventObject){
           nodeClickHandler(evt);
-      });
-    }
-    
+        });
+      }
+    },[]);
+
     const httpCall = async (house: string) => {
       const url: string = "https://hp-api.herokuapp.com/api/characters/house/"+house;
       const httpResponse: Response = await fetch(url, { mode: "cors" });
@@ -55,10 +49,6 @@ const GraphRender:FC<GraphRenderProps> = (props:GraphRenderProps) => {
           console.error(error);
         });
     };
-    
-    useEffect(() => {
-      // drawGraph()
-    }, [])
    
     return (
      <Fragment>
