@@ -6,22 +6,21 @@ interface GraphRenderProps{}
 
 const GraphRender:FC<GraphRenderProps> = (props:GraphRenderProps) => {
 
-    let cytoscape:Cytoscape;
     const graphRef = useRef<Cytoscape>();
    
     const cyContainerRef = useCallback((cyContainer:HTMLDivElement)=>{
       if(cyContainer!==null){
-        cytoscape = new Cytoscape(cyContainer);
-        graphRef.current = cytoscape;
+        graphRef.current = new Cytoscape(cyContainer);
       }
     },[]);
 
     useEffect(() =>{
-      console.log('tap');
-      cytoscape.cy.on('tap', 'node', function(evt: EventObject){
+      if(graphRef.current === null && graphRef.current === undefined) return;
+      console.log('use effect');
+      graphRef.current!.cy.on('tap', 'node', function(evt: EventObject){
         nodeClickHandler(evt);
       });
-    }, []);
+    });
 
     const httpCall = async (house: string) => {
       const url: string = "https://hp-api.herokuapp.com/api/characters/house/"+house;
@@ -37,7 +36,7 @@ const GraphRender:FC<GraphRenderProps> = (props:GraphRenderProps) => {
       httpCall(evt.target.id())
         .then((res)=>{
           res.forEach((element: any, index: number) => {
-            cytoscape.cy.add([
+            graphRef.current!.cy.add([
               {group: 'nodes',data: { id: element.name },}, 
               {group: 'edges', data: { 
                                       id: 'edge-' + index.toString() + "-" + element.name, 
@@ -45,7 +44,7 @@ const GraphRender:FC<GraphRenderProps> = (props:GraphRenderProps) => {
                                       classes:'autorotate' 
                                     }
             ]);
-            cytoscape.cy.layout(cytoscape.layoutOptions).run();
+            graphRef.current!.cy.layout(graphRef.current!.layoutOptions).run();
         });
         })
         .catch((error) => {
