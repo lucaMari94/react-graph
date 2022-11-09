@@ -20,7 +20,7 @@ const GraphRender:FC<GraphRenderProps> = (props:GraphRenderProps) => {
       graphRef.current!.cy.on('tap', 'node', function(evt: EventObject){
         nodeClickHandler(evt);
       });
-    });
+    }, []);
 
     const httpCall = async (house: string) => {
       const url: string = "https://hp-api.herokuapp.com/api/characters/house/"+house;
