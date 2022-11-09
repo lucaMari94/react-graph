@@ -3,6 +3,7 @@ import GraphRender from './UI/GraphRender';
 import { SearchAppBar } from './UI/AppBar';
 
 function App() {
+
   return (
     <React.Fragment>
       <SearchAppBar></SearchAppBar>
