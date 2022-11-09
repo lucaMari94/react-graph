@@ -8,29 +8,6 @@ const GraphRender:FC<GraphRenderProps> = (props:GraphRenderProps) => {
 
     const graphRef = useRef<Cytoscape>();
    
-    const cyContainerRef = useCallback((cyContainer:HTMLDivElement)=>{
-      if(cyContainer!==null){
-        graphRef.current = new Cytoscape(cyContainer);
-      }
-    },[]);
-
-    useEffect(() =>{
-      if(graphRef.current === null && graphRef.current === undefined) return;
-      console.log('use effect');
-      graphRef.current!.cy.on('tap', 'node', function(evt: EventObject){
-        nodeClickHandler(evt);
-      });
-    }, []);
-
-    const httpCall = async (house: string) => {
-      const url: string = "https://hp-api.herokuapp.com/api/characters/house/"+house;
-      const httpResponse: Response = await fetch(url, { mode: "cors" });
-      if (httpResponse.status !== 200) {
-        throw new Error( "House '" + house +"' not exist.");
-      }
-      return (await httpResponse.json());
-    };
-
     const nodeClickHandler = (evt:EventObject) => {
       evt.preventDefault();
       httpCall(evt.target.id())
@@ -50,6 +27,21 @@ const GraphRender:FC<GraphRenderProps> = (props:GraphRenderProps) => {
         .catch((error) => {
           console.error(error);
         });
+    };
+
+    const cyContainerRef = useCallback((cyContainer:HTMLDivElement)=>{
+      if(cyContainer!==null){
+        graphRef.current = new Cytoscape(cyContainer, nodeClickHandler);
+      }
+    },[]);
+
+    const httpCall = async (house: string) => {
+      const url: string = "https://hp-api.herokuapp.com/api/characters/house/"+house;
+      const httpResponse: Response = await fetch(url, { mode: "cors" });
+      if (httpResponse.status !== 200) {
+        throw new Error( "House '" + house +"' not exist.");
+      }
+      return (await httpResponse.json());
     };
    
     return (

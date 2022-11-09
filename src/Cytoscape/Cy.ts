@@ -1,11 +1,11 @@
-import cytoscape, { LayoutOptions, NodeSingular, Position } from "cytoscape";
+import cytoscape, { EventObject, LayoutOptions, NodeSingular, Position } from "cytoscape";
 import { Core } from "cytoscape";
 
 export class Cytoscape {
     cy:Core;
     layoutOptions: LayoutOptions;
-    
-    constructor(graphRef: HTMLDivElement) {
+
+    constructor(graphRef: HTMLDivElement, clickHandler:(e:EventObject) => void,) {
 
         this.layoutOptions = {
             name: 'breadthfirst',
@@ -92,6 +92,10 @@ export class Cytoscape {
             // wheelSensitivity: 0,
             pixelRatio: 'auto'
           })
+
+          this.cy.on('tap', 'node', function(evt: EventObject){
+            clickHandler(evt);
+          });
     }
    
     
