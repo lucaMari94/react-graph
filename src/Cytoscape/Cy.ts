@@ -38,7 +38,7 @@ export class Cytoscape {
               }
             ],
             layout: {
-              name: 'grid',
+              name: 'breadthfirst',
             },
             // initial viewport state:
             zoom: 0,

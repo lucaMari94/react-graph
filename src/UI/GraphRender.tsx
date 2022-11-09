@@ -44,7 +44,7 @@ const GraphRender:FC<GraphRenderProps> = (props:GraphRenderProps) => {
                                       classes:'autorotate' 
                                     }
             ]);
-            cytoscape.cy.layout({name: 'cose'}).run();
+            cytoscape.cy.layout({name: 'breadthfirst'}).run();
         });
         })
         .catch((error) => {
