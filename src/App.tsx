@@ -4,10 +4,10 @@ import { SearchAppBar } from './UI/AppBar';
 
 function App() {
   return (
-    <React.StrictMode>
+    <React.Fragment>
       <SearchAppBar></SearchAppBar>
       <GraphRender></GraphRender>
-  </React.StrictMode>
+  </React.Fragment>
   );
 }
 

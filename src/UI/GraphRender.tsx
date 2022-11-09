@@ -7,18 +7,21 @@ interface GraphRenderProps{}
 const GraphRender:FC<GraphRenderProps> = (props:GraphRenderProps) => {
 
     let cytoscape:Cytoscape;
-
     const graphRef = useRef<Cytoscape>();
    
     const cyContainerRef = useCallback((cyContainer:HTMLDivElement)=>{
       if(cyContainer!==null){
         cytoscape = new Cytoscape(cyContainer);
         graphRef.current = cytoscape;
-        cytoscape.cy.on('tap', 'node', function(evt: EventObject){
-          nodeClickHandler(evt);
-        });
       }
     },[]);
+
+    useEffect(() =>{
+      console.log('tap');
+      cytoscape.cy.on('tap', 'node', function(evt: EventObject){
+        nodeClickHandler(evt);
+      });
+    }, []);
 
     const httpCall = async (house: string) => {
       const url: string = "https://hp-api.herokuapp.com/api/characters/house/"+house;
