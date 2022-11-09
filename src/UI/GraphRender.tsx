@@ -30,15 +30,19 @@ const GraphRender:FC<GraphRenderProps> = (props:GraphRenderProps) => {
     };
 
     const nodeClickHandler = (evt:EventObject) => {
-      console.log(evt.target.id());
       evt.preventDefault();
+      console.log(evt.target.id());
       httpCall(evt.target.id())
         .then((res)=>{
           console.log(res);
           res.forEach((element: any, index: number) => {
             cytoscape.cy.add([
               {group: 'nodes',data: { id: element.name },}, 
-              {group: 'edges', data: { id: index.toString(), source: evt.target.id(), target: element.name }, classes:'autorotate' }
+              {group: 'edges', data: { 
+                                      id: 'edge-' + index.toString() + "-" + element.name, 
+                                      source: evt.target.id(), target: element.name }, 
+                                      classes:'autorotate' 
+                                    }
             ]);
             cytoscape.cy.layout({name: 'cose'}).run();
         });
