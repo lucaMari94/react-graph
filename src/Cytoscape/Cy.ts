@@ -1,4 +1,4 @@
-import cytoscape, { EventObject, LayoutOptions, NodeSingular, Position } from "cytoscape";
+import cytoscape, { EdgeSingular, EventObject, LayoutOptions, NodeSingular, Position } from "cytoscape";
 import { Core } from "cytoscape";
 
 export class Cytoscape {
@@ -96,6 +96,21 @@ export class Cytoscape {
           this.cy.on('tap', 'node', function(evt: EventObject){
             clickHandler(evt);
           });
+    }
+
+    addCharactersNodesAndEdge = (characters: any, initNodeId: string) => {
+      const nodes: Array<NodeSingular> = [];
+      const edges: Array<EdgeSingular> = [];
+      characters.forEach((element: any, index: number) => {
+      this.cy.add([
+        {group: 'nodes', data: { id: element.name }}, 
+        {group: 'edges', data: {
+          id: 'edge-' + index.toString() + "-" + element.name, 
+          source: initNodeId, target: element.name }, 
+          classes:'autorotate' 
+        }
+      ]);
+      });
     }
    
     

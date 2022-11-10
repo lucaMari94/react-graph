@@ -12,17 +12,8 @@ const GraphRender:FC<GraphRenderProps> = (props:GraphRenderProps) => {
       evt.preventDefault();
       httpCall(evt.target.id())
         .then((res)=>{
-          res.forEach((element: any, index: number) => {
-            graphRef.current!.cy.add([
-              {group: 'nodes',data: { id: element.name },}, 
-              {group: 'edges', data: { 
-                                      id: 'edge-' + index.toString() + "-" + element.name, 
-                                      source: evt.target.id(), target: element.name }, 
-                                      classes:'autorotate' 
-                                    }
-            ]);
+            graphRef.current!.addCharactersNodesAndEdge(res, evt.target.id());
             graphRef.current!.cy.layout(graphRef.current!.layoutOptions).run();
-        });
         })
         .catch((error) => {
           console.error(error);
