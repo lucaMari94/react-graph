@@ -13,7 +13,7 @@ export const SearchAppBar : FC<SearchAppBarProps> = (props:SearchAppBarProps) =>
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}>
-            MusicBrainz Graph
+            MusicBrainz Dataset
           </Typography>
         </Toolbar>
       </AppBar>
