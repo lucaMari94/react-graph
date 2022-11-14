@@ -31,7 +31,6 @@ function App() {
   }
 
   const expandNode = (event: EventObject) => {
-    console.log(event.target.id());
     event.preventDefault();
     if(event.target.id() !== ""){
       get25ArtistByCountry(event.target.id(), artistList.length).then((res: any)=>{
