@@ -47,13 +47,14 @@ const QueryForm:FC<QueryFormProps> = (props:QueryFormProps) => {
                 onChange={onAreaChange}
               >
                 {countryList.map((country) => {        
-                return <MenuItem key={country} value={country} id={country}>{country}</MenuItem>
+                  return <MenuItem key={country} value={country} id={country}>{country}</MenuItem>
                 })}
               </Select>
             </FormControl>
             <Button sx={{m:1}} type="submit" color="primary" variant="contained" size="medium">Search</Button>
             <Button sx={{m:1}} color="warning" onClick={handleReset} size="medium">Reset</Button>
           </form>
+          <p>Found: </p>
         </AccordionDetails>
       </Accordion>
     </div>

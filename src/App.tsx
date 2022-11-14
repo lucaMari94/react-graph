@@ -6,24 +6,7 @@ import QueryForm from './UI/QueryForm';
 import { FormEvent, useState } from 'react';
 import { EventObject } from 'cytoscape';
 import { Container } from '@mui/material';
-
-export interface ArtistDefinition {
-  id: string;
-  type: string;
-  name: string;
-  score: number;
-  country: string;
-  gender: string;
-  aliases: Array<{
-    name: string;
-    locale: string;
-    type: string;
-  }>;
-  area: {
-    name: string;
-    type: string;
-  };
-};
+import { ArtistDefinition } from './utils/definations';
 
 function App() {
 

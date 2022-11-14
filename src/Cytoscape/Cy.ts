@@ -1,6 +1,6 @@
 import cytoscape, { EventObject, LayoutOptions, NodeSingular, Position } from "cytoscape";
 import { Core } from "cytoscape";
-import { ArtistDefinition } from "../App";
+import { ArtistDefinition } from '../utils/definations';
 
 export class Cytoscape {
     cy:Core;

@@ -1,6 +1,6 @@
 import { EventObject } from "cytoscape"
 import { FC, useCallback, useEffect, useRef } from "react"
-import { ArtistDefinition } from "../App";
+import { ArtistDefinition } from '../utils/definations'
 import { Cytoscape } from "../Cytoscape/Cy";
 import React from 'react';
 import { Accordion, AccordionDetails, AccordionSummary, Typography } from "@mui/material";
@@ -36,18 +36,17 @@ const GraphVisualization:FC<GraphVisualizationProps> = (props:GraphVisualization
 
     return (
       <div>
-      <Accordion>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
-        >
-          <Typography>Graph Visualization</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <div ref={cyContainerRef} style={{backgroundColor: 'black', width: '100%', height: '50vh'}}></div>
-        </AccordionDetails>
-      </Accordion>
+        <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel1a-content"
+            id="panel1a-header">
+              <Typography>Graph Visualization</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <div ref={cyContainerRef} style={{backgroundColor: 'black', width: '100%', height: '50vh'}}></div>
+          </AccordionDetails>
+        </Accordion>
     </div>
     )
    }
