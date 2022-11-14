@@ -18,7 +18,8 @@ const GraphVisualization:FC<GraphVisualizationProps> = (props:GraphVisualization
     const graphRef = useRef<Cytoscape>();
    
     // use Effect for update graph with new nodes and edges (artist)
-    useEffect( () => {
+    useCallback( () => {
+      
       if(graphRef.current && props.areaValue !== ""){
         // Add Artist Nodes And Edge
         graphRef.current!.addArtistNodesAndEdge(props.artistList, props.areaValue);

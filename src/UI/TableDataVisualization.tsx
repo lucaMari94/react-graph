@@ -65,7 +65,7 @@ const TableDataVisualization:FC<TableDataVisualizationProps> = (props:TableDataV
                                 {artist.score}
                             </TableCell>
                             <TableCell component="th" scope="row">
-                                {artist.area.name} ({artist.country})
+                                {artist.area ? artist.area.name : artist.country} ({artist.country})
                             </TableCell>
                         </TableRow>
                     ))}
