@@ -54,16 +54,21 @@ function App() {
     <React.Fragment>
       <SearchAppBar></SearchAppBar>
       <Container fixed sx={{marginTop:3}}>
-          <QueryForm areaValue={areaValue} 
-                    setAreaValue={setAreaValue} 
-                    handleSubmit={handleSubmit}
+          <QueryForm 
+            areaValue={areaValue} 
+            setAreaValue={setAreaValue} 
+            handleSubmit={handleSubmit}
           />
 
-          <TableDataVisualization></TableDataVisualization>
+          <TableDataVisualization
+            areaValue={areaValue} 
+            artistList={artistList}
+          />
 
-          <GraphRender areaValue={areaValue} 
-                      artistList={artistList}
-                      handleSubmit={handleSubmit}
+          <GraphRender 
+            areaValue={areaValue} 
+            artistList={artistList}
+            handleSubmit={handleSubmit}
           />
       </Container>
       
