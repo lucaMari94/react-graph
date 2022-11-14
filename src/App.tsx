@@ -13,6 +13,7 @@ export interface ArtistDefinition {
   name: string;
   score: number;
   country: string;
+  gender: string;
   aliases: Array<{
     name: string;
     locale: string;

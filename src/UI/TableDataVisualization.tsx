@@ -37,6 +37,9 @@ const TableDataVisualization:FC<TableDataVisualizationProps> = (props:TableDataV
                 <TableRow>
                     <TableCell>Artist Name</TableCell>
                     <TableCell>ID</TableCell>
+                    <TableCell>Type</TableCell>
+                    <TableCell>Gender</TableCell>
+                    <TableCell>Score</TableCell>
                 </TableRow>
                 </TableHead>
                 <TableBody>
@@ -47,6 +50,15 @@ const TableDataVisualization:FC<TableDataVisualizationProps> = (props:TableDataV
                             </TableCell>
                             <TableCell component="th" scope="row">
                                 {artist.id}
+                            </TableCell>
+                            <TableCell component="th" scope="row">
+                                {artist.type}
+                            </TableCell>
+                            <TableCell component="th" scope="row">
+                                {artist.gender ? artist.gender : '-'}
+                            </TableCell>
+                            <TableCell component="th" scope="row">
+                                {artist.score}
                             </TableCell>
                         </TableRow>
                     ))}
