@@ -1,4 +1,4 @@
-import cytoscape, { EdgeSingular, EventObject, LayoutOptions, NodeSingular, Position } from "cytoscape";
+import cytoscape, { EventObject, LayoutOptions, NodeSingular, Position } from "cytoscape";
 import { Core } from "cytoscape";
 import { ArtistDefinition } from "../App";
 
@@ -105,8 +105,8 @@ export class Cytoscape {
     }
 
     addArtistNodesAndEdge = (artistList: Array<ArtistDefinition>, initNodeId: string) => {
-      const nodes: Array<NodeSingular> = [];
-      const edges: Array<EdgeSingular> = [];
+      // const nodes: Array<NodeSingular> = [];
+      // const edges: Array<EdgeSingular> = [];
       this.cy.add([{data: { id: initNodeId}}]);
       artistList.forEach((artist: ArtistDefinition) => {
         this.cy.add([
