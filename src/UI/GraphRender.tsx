@@ -3,6 +3,8 @@ import { FC, Fragment, useCallback, useEffect, useRef } from "react"
 import { ArtistDefinition } from "../App";
 import { Cytoscape } from "../Cytoscape/Cy";
 import React from 'react';
+import { Accordion, AccordionDetails, AccordionSummary, Typography } from "@mui/material";
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 interface GraphRenderProps{
   areaValue: string;
@@ -33,9 +35,20 @@ const GraphRender:FC<GraphRenderProps> = (props:GraphRenderProps) => {
     },[props.artistList]);
 
     return (
-     <Fragment>
-        <div ref={cyContainerRef} style={{backgroundColor: 'black', width: '100%', height: '90vh'}}></div>
-     </Fragment>
+      <div>
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1a-content"
+          id="panel1a-header"
+        >
+          <Typography>Graph visualization</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <div ref={cyContainerRef} style={{backgroundColor: 'black', width: '100%', height: '50vh'}}></div>
+        </AccordionDetails>
+      </Accordion>
+    </div>
     )
    }
    

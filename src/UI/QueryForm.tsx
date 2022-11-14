@@ -4,8 +4,10 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { ChangeEvent, FC, FormEvent } from 'react';
-import { Button, TextField } from '@mui/material';
+import { Box, Button, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import React from 'react';
+import { countryList } from '../utils/countryList';
+import { SelectChangeEvent } from '@mui/material';
 
 interface QueryFormProps{
     areaValue:string
@@ -15,7 +17,7 @@ interface QueryFormProps{
 
 const QueryForm:FC<QueryFormProps> = (props:QueryFormProps) => {
 
-  const onAreaChange = (event: ChangeEvent<HTMLInputElement> )=> {
+  const onAreaChange = (event: SelectChangeEvent)=> {
     props.setAreaValue(event.target.value);
   }
 
@@ -25,7 +27,7 @@ const QueryForm:FC<QueryFormProps> = (props:QueryFormProps) => {
 
   return (
     <div>
-      <Accordion expanded={true}>
+      <Accordion>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
@@ -35,17 +37,25 @@ const QueryForm:FC<QueryFormProps> = (props:QueryFormProps) => {
         </AccordionSummary>
         <AccordionDetails>
             <form onSubmit={props.handleSubmit}>
-                <TextField id="areaTextField" 
-                        label="Area" 
-                        variant="outlined"
-                        size="small"
-                        value={props.areaValue}
-                        onChange={onAreaChange}
-                />
-                <Button type="submit" color="success" variant="contained">Search</Button>
-                <Button color="warning" onClick={handleReset}>Reset</Button>
+              <FormControl fullWidth size="small">
+                <InputLabel id="area-select-label">Area</InputLabel>
+                <Select
+                  labelId="area-select-label"
+                  id="area-select"
+                  label="Area"
+                  value={props.areaValue}
+                  onChange={onAreaChange}
+                >
+                  {countryList.map((country) => {        
+                  return <MenuItem value={country} id={country}>{country}</MenuItem>
+                  })}
+                </Select>
+              </FormControl>
+              <Button sx={{m:1}} type="submit" color="primary" variant="contained" size="medium">Search</Button>
+              <Button sx={{m:1}} color="warning" onClick={handleReset} size="medium">Reset</Button>
+
+               
             </form>
-        
         </AccordionDetails>
       </Accordion>
     </div>

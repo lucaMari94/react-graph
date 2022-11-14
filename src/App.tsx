@@ -4,6 +4,7 @@ import { SearchAppBar } from './UI/AppBar';
 import QueryForm from './UI/QueryForm';
 import { FormEvent, useState } from 'react';
 import { EventObject } from 'cytoscape';
+import { Container } from '@mui/material';
 
 export interface ArtistDefinition {
   id: string;
@@ -51,15 +52,17 @@ function App() {
   return (
     <React.Fragment>
       <SearchAppBar></SearchAppBar>
-      <QueryForm areaValue={areaValue} 
-                 setAreaValue={setAreaValue} 
-                 handleSubmit={handleSubmit}
-      />
+      <Container fixed sx={{marginTop:3}}>
+          <QueryForm areaValue={areaValue} 
+                    setAreaValue={setAreaValue} 
+                    handleSubmit={handleSubmit}
+          />
 
-      <GraphRender areaValue={areaValue} 
-                   artistList={artistList}
-                   handleSubmit={handleSubmit}
-      />
+          <GraphRender areaValue={areaValue} 
+                      artistList={artistList}
+                      handleSubmit={handleSubmit}
+          />
+      </Container>
       
   </React.Fragment>
   );
