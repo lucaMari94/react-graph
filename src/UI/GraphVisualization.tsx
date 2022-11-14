@@ -42,7 +42,7 @@ const GraphVisualization:FC<GraphVisualizationProps> = (props:GraphVisualization
     // event when click to cytoscape node: expand node with 25 artist (http call)
     const nodeClickHandler = (evt:EventObject) => {
       evt.preventDefault();
-      props.expandNode(evt);
+      // props.expandNode(evt);
     };
 
     return (
