@@ -1,5 +1,6 @@
 import * as React from 'react';
-import GraphRender from './UI/GraphRender';
+import GraphRender from './UI/GraphVisualization';
+import TableDataVisualization from './UI/TableDataVisualization';
 import { SearchAppBar } from './UI/AppBar';
 import QueryForm from './UI/QueryForm';
 import { FormEvent, useState } from 'react';
@@ -57,6 +58,8 @@ function App() {
                     setAreaValue={setAreaValue} 
                     handleSubmit={handleSubmit}
           />
+
+          <TableDataVisualization></TableDataVisualization>
 
           <GraphRender areaValue={areaValue} 
                       artistList={artistList}

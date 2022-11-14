@@ -1,18 +1,18 @@
 import { EventObject } from "cytoscape"
-import { FC, Fragment, useCallback, useEffect, useRef } from "react"
+import { FC, useCallback, useEffect, useRef } from "react"
 import { ArtistDefinition } from "../App";
 import { Cytoscape } from "../Cytoscape/Cy";
 import React from 'react';
 import { Accordion, AccordionDetails, AccordionSummary, Typography } from "@mui/material";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-interface GraphRenderProps{
+interface GraphVisualizationProps{
   areaValue: string;
   artistList: Array<ArtistDefinition>;
   handleSubmit: (event: EventObject) => void
 }
 
-const GraphRender:FC<GraphRenderProps> = (props:GraphRenderProps) => {
+const GraphVisualization:FC<GraphVisualizationProps> = (props:GraphVisualizationProps) => {
 
     const graphRef = useRef<Cytoscape>();
    
@@ -52,4 +52,4 @@ const GraphRender:FC<GraphRenderProps> = (props:GraphRenderProps) => {
     )
    }
    
-   export default GraphRender;
+   export default GraphVisualization;
