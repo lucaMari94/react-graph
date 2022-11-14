@@ -3,6 +3,7 @@ import GraphRender from './UI/GraphRender';
 import { SearchAppBar } from './UI/AppBar';
 import QueryForm from './UI/QueryForm';
 import { FormEvent, useState } from 'react';
+import { EventObject } from 'cytoscape';
 
 export interface ArtistDefinition {
   id: string;
@@ -34,24 +35,13 @@ function App() {
       return (await httpResponse.json());
   };
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement> | EventObject) => {
     event.preventDefault();
     if(areaValue !== ""){
-      let artistListArray: Array<ArtistDefinition> = [];
-      let count : number = 0;
-      httpCall(areaValue).then(async (res)=>{
-        artistListArray.push(...res.artists);
-        /*const count = res.count; 
-        while (count >= artistListArray.length) {
-          // await new Promise((resolve) => setTimeout(resolve, 500)); 
-          httpCall(areaValue, artistListArray.length).then((res)=>{
-            artistListArray.push(...res.artists);
-            console.log(artistListArray);
-          }).catch((error) => {
-            console.error(error);
-          });
-        }*/
-        setArtistList(artistListArray)
+      httpCall(areaValue, artistList.length).then((res)=>{
+        setArtistList((prevState: Array<ArtistDefinition>) => {
+          return [...prevState, ...res.artists];
+        });
       }).catch((error) => {
         console.error(error);
       });
@@ -68,6 +58,7 @@ function App() {
 
       <GraphRender areaValue={areaValue} 
                    artistList={artistList}
+                   handleSubmit={handleSubmit}
       />
       
   </React.Fragment>

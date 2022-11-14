@@ -6,6 +6,7 @@ import { Cytoscape } from "../Cytoscape/Cy";
 interface GraphRenderProps{
   areaValue: string;
   artistList: Array<ArtistDefinition>;
+  handleSubmit: (event: EventObject) => void
 }
 
 const GraphRender:FC<GraphRenderProps> = (props:GraphRenderProps) => {
@@ -19,21 +20,14 @@ const GraphRender:FC<GraphRenderProps> = (props:GraphRenderProps) => {
       } 
     }, [props.artistList]);
 
-    /*const nodeClickHandler = (evt:EventObject) => {
+    const nodeClickHandler = (evt:EventObject) => {
       evt.preventDefault();
-      httpCall(evt.target.id())
-        .then((res)=>{
-            graphRef.current!.addCharactersNodesAndEdge(res, evt.target.id());
-            graphRef.current!.cy.layout(graphRef.current!.layoutOptions).run();
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    };*/
+      props.handleSubmit(evt);
+    };
 
     const cyContainerRef = useCallback((cyContainer:HTMLDivElement)=>{
       if(cyContainer!==null && props.areaValue !== ""){
-        graphRef.current = new Cytoscape(cyContainer, props.areaValue);
+        graphRef.current = new Cytoscape(cyContainer, props.areaValue, nodeClickHandler);
       }
     },[props.artistList]);
 

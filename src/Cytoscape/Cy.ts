@@ -7,8 +7,7 @@ export class Cytoscape {
     layoutOptions: LayoutOptions;
     areaValue: string;
 
-    // clickHandler:(e:EventObject) => void,
-    constructor(graphRef: HTMLDivElement, areaValue: string) {
+    constructor(graphRef: HTMLDivElement, areaValue: string, clickHandler:(e:EventObject) => void) {
         this.areaValue = areaValue;
         this.layoutOptions = {
             name: 'breadthfirst',
@@ -99,9 +98,10 @@ export class Cytoscape {
             pixelRatio: 'auto'
           })
 
-          /*this.cy.on('tap', 'node', function(evt: EventObject){
+          this.cy.on('tap', 'node', function(evt: EventObject){
+            // console.log(evt.target.id())
             clickHandler(evt);
-          });*/
+          });
     }
 
     addArtistNodesAndEdge = (artistList: Array<ArtistDefinition>, initNodeId: string) => {
