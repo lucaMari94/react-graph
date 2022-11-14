@@ -47,7 +47,7 @@ const QueryForm:FC<QueryFormProps> = (props:QueryFormProps) => {
                   onChange={onAreaChange}
                 >
                   {countryList.map((country) => {        
-                  return <MenuItem value={country} id={country}>{country}</MenuItem>
+                  return <MenuItem key={country} value={country} id={country}>{country}</MenuItem>
                   })}
                 </Select>
               </FormControl>
