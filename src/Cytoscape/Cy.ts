@@ -117,8 +117,12 @@ export class Cytoscape {
             label: 'FROM_AREA' }, 
             classes:'autorotate',
           }
-      ]);
+        ]);
       });
+    }
+
+    removeAllNodes = () => {
+      this.cy.elements().remove();
     }
    
     

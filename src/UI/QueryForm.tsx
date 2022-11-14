@@ -14,16 +14,13 @@ interface QueryFormProps{
     setAreaValue: (area : string) => void
     countTotalArtist: number;
     handleSubmit: (event: FormEvent<HTMLFormElement>) => void
+    handleReset: (event: FormEvent<HTMLButtonElement>) => void
 }
 
 const QueryForm:FC<QueryFormProps> = (props:QueryFormProps) => {
 
   const onAreaChange = (event: SelectChangeEvent)=> {
     props.setAreaValue(event.target.value);
-  }
-
-  const handleReset = () => {
-    props.setAreaValue("");
   }
 
   return (
@@ -53,7 +50,7 @@ const QueryForm:FC<QueryFormProps> = (props:QueryFormProps) => {
               </Select>
             </FormControl>
             <Button sx={{m:1}} type="submit" color="primary" variant="contained" size="medium">Search</Button>
-            <Button sx={{m:1}} color="warning" onClick={handleReset} size="medium">Reset</Button>
+            <Button sx={{m:1}} color="warning" onClick={props.handleReset} size="medium">Reset</Button>
           </form>
           {props.countTotalArtist !== 0 && <p>Found: {props.countTotalArtist}</p>}
         </AccordionDetails>

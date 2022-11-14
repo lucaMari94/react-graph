@@ -17,10 +17,15 @@ const GraphVisualization:FC<GraphVisualizationProps> = (props:GraphVisualization
     const graphRef = useRef<Cytoscape>();
    
     useEffect( () => {
-      if(props.artistList.length > 0){
+      if(graphRef.current && props.areaValue !== ""){
         graphRef.current!.addArtistNodesAndEdge(props.artistList, props.areaValue);
         graphRef.current!.cy.layout(graphRef.current!.layoutOptions).run();
-      } 
+      } else {
+        if(graphRef.current) {
+          graphRef.current!.removeAllNodes();
+          graphRef.current!.cy.layout(graphRef.current!.layoutOptions).run();
+        }
+      }
     }, [props.artistList]);
 
     const nodeClickHandler = (evt:EventObject) => {

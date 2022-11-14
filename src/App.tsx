@@ -37,6 +37,12 @@ function App() {
       });
     }
   }
+
+  const handleReset = () => {
+    setAreaValue("");
+    setArtistList([]);
+    setCountTotalArtist(0);
+  }
   
   return (
     <React.Fragment>
@@ -47,6 +53,7 @@ function App() {
             setAreaValue={setAreaValue}
             countTotalArtist={countTotalArtist}
             handleSubmit={handleSubmit}
+            handleReset={handleReset}
           />
 
           <TableDataVisualization
