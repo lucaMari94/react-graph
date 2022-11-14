@@ -12,7 +12,7 @@ import { ArtistDefinition } from '../utils/definations';
 
 interface QueryFormProps{
     areaValue:string
-    setAreaValue: (area : string) => void
+    setAreaValue: (area : string) => void;
     countTotalArtist: number;
     handleSubmit: (event: FormEvent<HTMLFormElement>) => void;
     handleReset: (event: FormEvent<HTMLButtonElement>) => void;
@@ -21,7 +21,7 @@ interface QueryFormProps{
 
 const QueryForm:FC<QueryFormProps> = (props:QueryFormProps) => {
 
-  // change handler for set value of country STATE with selected country
+  // change handler for set value of country States with selected country
   const onAreaChange = (event: SelectChangeEvent)=> {
     props.setAreaValue(event.target.value);
   }

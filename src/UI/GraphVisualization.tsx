@@ -9,7 +9,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 interface GraphVisualizationProps{
   areaValue: string;
   artistList: Array<ArtistDefinition>;
-  expandNode: (event: EventObject) => void
+  expandNode: (event: EventObject) => void;
 }
 
 const GraphVisualization:FC<GraphVisualizationProps> = (props:GraphVisualizationProps) => {
