@@ -12,6 +12,8 @@ function App() {
 
   const [areaValue, setAreaValue] = useState<string>("");
   const [artistList, setArtistList] = useState<Array<ArtistDefinition>>([]);
+  const [countTotalArtist, setCountTotalArtist] = useState<number>(0);
+  
   const httpCall = async (area: string, offset : number = 0) => {
       const url: string = "https://musicbrainz.org/ws/2/artist?query=area:" + area + "&offset=" + offset + "&fmt=json";
       const httpResponse: Response = await fetch(url, { mode: "cors" });
@@ -25,6 +27,7 @@ function App() {
     event.preventDefault();
     if(areaValue !== ""){
       httpCall(areaValue, artistList.length).then((res)=>{
+        setCountTotalArtist(res.count);
         setArtistList((prevState: Array<ArtistDefinition>) => {
           return [...prevState, ...res.artists];
         });
@@ -39,14 +42,16 @@ function App() {
       <SearchAppBar></SearchAppBar>
       <Container fixed sx={{marginTop:3}}>
           <QueryForm 
-            areaValue={areaValue} 
-            setAreaValue={setAreaValue} 
+            areaValue={areaValue}
+            setAreaValue={setAreaValue}
+            countTotalArtist={countTotalArtist}
             handleSubmit={handleSubmit}
           />
 
           <TableDataVisualization
             areaValue={areaValue} 
             artistList={artistList}
+            countTotalArtist={countTotalArtist}
           />
 
           <GraphRender 

@@ -16,6 +16,7 @@ import { ArtistDefinition } from '../utils/definations';
 interface TableDataVisualizationProps{
     areaValue:string;
     artistList: Array<ArtistDefinition>;
+    countTotalArtist: number;
 }
 
 const TableDataVisualization:FC<TableDataVisualizationProps> = (props:TableDataVisualizationProps) => {
@@ -26,15 +27,15 @@ const TableDataVisualization:FC<TableDataVisualizationProps> = (props:TableDataV
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
-          id="panel1a-header"
-        >
-          <Typography>Table Data Visualization ({props.artistList.length})</Typography>
+          id="panel1a-header">
+          <Typography>Artists Table Visualization ({props.artistList.length}/{props.countTotalArtist})</Typography>
         </AccordionSummary>
         <AccordionDetails>
         <TableContainer component={Paper} sx={{ maxHeight: 450, overflow: 'auto'}}>
             <Table sx={{ minWidth: 650}} aria-label="simple table">
                 <TableHead>
                 <TableRow>
+                    <TableCell>#</TableCell>
                     <TableCell>Artist Name</TableCell>
                     <TableCell>ID</TableCell>
                     <TableCell>Type</TableCell>
@@ -43,8 +44,11 @@ const TableDataVisualization:FC<TableDataVisualizationProps> = (props:TableDataV
                 </TableRow>
                 </TableHead>
                 <TableBody>
-                    {props.artistList.map((artist) => (
+                    {props.artistList.map((artist: ArtistDefinition, i: number) => (
                         <TableRow key={artist.name} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                            <TableCell component="th" scope="row">
+                                {i}
+                            </TableCell>
                             <TableCell component="th" scope="row">
                                 {artist.name}
                             </TableCell>

@@ -8,10 +8,12 @@ import { Button, FormControl, InputLabel, MenuItem, Select } from '@mui/material
 import React from 'react';
 import { countryList } from '../utils/countryList';
 import { SelectChangeEvent } from '@mui/material';
+import { isPropertyAccessChain } from 'typescript';
 
 interface QueryFormProps{
     areaValue:string
     setAreaValue: (area : string) => void
+    countTotalArtist: number;
     handleSubmit: (event: FormEvent<HTMLFormElement>) => void
 }
 
@@ -54,7 +56,7 @@ const QueryForm:FC<QueryFormProps> = (props:QueryFormProps) => {
             <Button sx={{m:1}} type="submit" color="primary" variant="contained" size="medium">Search</Button>
             <Button sx={{m:1}} color="warning" onClick={handleReset} size="medium">Reset</Button>
           </form>
-          <p>Found: </p>
+          {props.countTotalArtist !== 0 && <p>Found: {props.countTotalArtist}</p>}
         </AccordionDetails>
       </Accordion>
     </div>
