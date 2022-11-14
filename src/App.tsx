@@ -15,6 +15,7 @@ function App() {
   const [artistList, setArtistList] = useState<Array<ArtistDefinition>>([]);
   const [countTotalArtist, setCountTotalArtist] = useState<number>(0);
   
+  // HTTP CALL TO musicbrainz for retrieve artist of country
   const httpCall = async (area: string, offset : number = 0) => {
       const url: string = "https://musicbrainz.org/ws/2/artist?query=area:" + area + "&offset=" + offset + "&fmt=json";
       const httpResponse: Response = await fetch(url, { mode: "cors" });
@@ -38,6 +39,7 @@ function App() {
     }
   }
 
+  // RESET ALL DATA: country, table, graph and charts
   const handleReset = () => {
     setAreaValue("");
     setArtistList([]);
@@ -66,7 +68,7 @@ function App() {
           <GraphRender 
             areaValue={areaValue} 
             artistList={artistList}
-            handleSubmit={handleSubmit}
+            expandNode={handleSubmit}
           />
 
           <ChartVisualization/>

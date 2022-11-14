@@ -21,7 +21,7 @@ interface QueryFormProps{
 
 const QueryForm:FC<QueryFormProps> = (props:QueryFormProps) => {
 
-  // change handler for set value of area with selected country
+  // change handler for set value of country STATE with selected country
   const onAreaChange = (event: SelectChangeEvent)=> {
     props.setAreaValue(event.target.value);
   }

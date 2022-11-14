@@ -9,28 +9,33 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 interface GraphVisualizationProps{
   areaValue: string;
   artistList: Array<ArtistDefinition>;
-  handleSubmit: (event: EventObject) => void
+  expandNode: (event: EventObject) => void
 }
 
 const GraphVisualization:FC<GraphVisualizationProps> = (props:GraphVisualizationProps) => {
 
+    // graph reference: div to graph
     const graphRef = useRef<Cytoscape>();
    
+    // use Effect for update graph with new nodes and edges (artist)
     useEffect( () => {
       if(graphRef.current && props.areaValue !== ""){
+        // Add Artist Nodes And Edge
         graphRef.current!.addArtistNodesAndEdge(props.artistList, props.areaValue);
         graphRef.current!.cy.layout(graphRef.current!.layoutOptions).run();
       } else {
         if(graphRef.current) {
+          // props.areaValue is empty remove all node (reset all)
           graphRef.current!.removeAllNodes();
           graphRef.current!.cy.layout(graphRef.current!.layoutOptions).run();
         }
       }
     }, [props.artistList]);
 
+    // event when click to cytoscape node: expand node with 25 artist (http call)
     const nodeClickHandler = (evt:EventObject) => {
       evt.preventDefault();
-      props.handleSubmit(evt);
+      props.expandNode(evt);
     };
 
     const cyContainerRef = useCallback((cyContainer:HTMLDivElement)=>{
