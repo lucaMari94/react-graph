@@ -22,7 +22,7 @@ const GraphVisualization:FC<GraphVisualizationProps> = (props:GraphVisualization
       if(cyContainer!==null){
         graphRef.current = new Cytoscape(cyContainer, nodeClickHandler);
       }
-    },[props.artistList]);
+    },[]);
 
     // use Effect for update graph with new nodes and edges (artist)
     useEffect( () => {

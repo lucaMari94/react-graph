@@ -42,7 +42,6 @@ export class Cytoscape {
           })
 
           this.cy.on('tap', 'node', function(evt: EventObject){
-            // console.log(evt.target.id())
             clickHandler(evt);
           });
     }

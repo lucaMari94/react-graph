@@ -32,8 +32,9 @@ function App() {
 
   const expandNode = (event: EventObject) => {
     event.preventDefault();
-    if(event.target.id() !== ""){
-      get25ArtistByCountry(event.target.id(), artistList.length).then((res: any)=>{
+    console.log(areaValue);
+    if(areaValue !== ""){
+      get25ArtistByCountry(areaValue, artistList.length).then((res: any)=>{
         setCountTotalArtist(res.count);
         setArtistList((prevState: Array<ArtistDefinition>) => {
           return [...prevState, ...res.artists];
