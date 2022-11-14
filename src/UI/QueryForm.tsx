@@ -21,6 +21,7 @@ interface QueryFormProps{
 
 const QueryForm:FC<QueryFormProps> = (props:QueryFormProps) => {
 
+  // change handler for set value of area with selected country
   const onAreaChange = (event: SelectChangeEvent)=> {
     props.setAreaValue(event.target.value);
   }
@@ -38,12 +39,12 @@ const QueryForm:FC<QueryFormProps> = (props:QueryFormProps) => {
         <AccordionDetails>
           <form onSubmit={props.handleSubmit}>
             <FormControl fullWidth size="small">
-              <InputLabel id="area-select-label">Area</InputLabel>
+              <InputLabel id="area-select-label">Country</InputLabel>
               <Select
                 disabled={props.countTotalArtist > 0}
                 labelId="area-select-label"
                 id="area-select"
-                label="Area"
+                label="Country"
                 value={props.areaValue}
                 onChange={onAreaChange}
               >

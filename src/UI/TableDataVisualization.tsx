@@ -20,7 +20,6 @@ interface TableDataVisualizationProps{
 }
 
 const TableDataVisualization:FC<TableDataVisualizationProps> = (props:TableDataVisualizationProps) => {
-
   return (
     <div>
       <Accordion>
