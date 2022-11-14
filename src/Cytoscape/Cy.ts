@@ -46,6 +46,13 @@ export class Cytoscape {
                 }
               },
               {
+                selector: 'edge',
+                css: {
+                  'label': 'data(label)',
+                  'color': "white"
+                }
+              },
+              {
                 "selector": ".autorotate",
                 "style": {
                     "font-size": 10,
@@ -101,13 +108,14 @@ export class Cytoscape {
       const edges: Array<EdgeSingular> = [];
       this.cy.add([{data: { id: initNodeId}}]);
       artistList.forEach((artist: ArtistDefinition) => {
-      this.cy.add([
-        {group: 'nodes', data: { id: artist.name }}, 
-        {group: 'edges', data: {
-          id: 'edge-' + artist.id + "-" + artist.name, 
-          source: initNodeId, target: artist.name }, 
-          classes:'autorotate' 
-        }
+        this.cy.add([
+          {group: 'nodes', data: { id: artist.name }}, 
+          {group: 'edges', data: {
+            id: 'edge-' + artist.id + "-" + artist.name, 
+            source: initNodeId, target: artist.name,
+            label: 'FROM_AREA' }, 
+            classes:'autorotate',
+          }
       ]);
       });
     }
