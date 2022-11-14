@@ -1,14 +1,25 @@
 import { EventObject } from "cytoscape"
-import { FC, Fragment, useCallback, useEffect, useRef } from "react"
+import { FC, FormEvent, Fragment, useCallback, useEffect, useRef } from "react"
+import { ArtistDefinition } from "../App";
 import { Cytoscape } from "../Cytoscape/Cy";
 
-interface GraphRenderProps{}
+interface GraphRenderProps{
+  areaValue: string;
+  artistList: Array<ArtistDefinition>;
+}
 
 const GraphRender:FC<GraphRenderProps> = (props:GraphRenderProps) => {
 
     const graphRef = useRef<Cytoscape>();
    
-    const nodeClickHandler = (evt:EventObject) => {
+    useEffect( () => {
+      if(props.artistList.length > 0){
+        graphRef.current!.addArtistNodesAndEdge(props.artistList, props.areaValue);
+        graphRef.current!.cy.layout(graphRef.current!.layoutOptions).run();
+      } 
+    }, [props.artistList]);
+
+    /*const nodeClickHandler = (evt:EventObject) => {
       evt.preventDefault();
       httpCall(evt.target.id())
         .then((res)=>{
@@ -18,23 +29,14 @@ const GraphRender:FC<GraphRenderProps> = (props:GraphRenderProps) => {
         .catch((error) => {
           console.error(error);
         });
-    };
+    };*/
 
     const cyContainerRef = useCallback((cyContainer:HTMLDivElement)=>{
-      if(cyContainer!==null){
-        graphRef.current = new Cytoscape(cyContainer, nodeClickHandler);
+      if(cyContainer!==null && props.areaValue !== ""){
+        graphRef.current = new Cytoscape(cyContainer, props.areaValue);
       }
-    },[]);
+    },[props.artistList]);
 
-    const httpCall = async (house: string) => {
-      const url: string = "https://hp-api.herokuapp.com/api/characters/house/"+house;
-      const httpResponse: Response = await fetch(url, { mode: "cors" });
-      if (httpResponse.status !== 200) {
-        throw new Error( "House '" + house +"' not exist.");
-      }
-      return (await httpResponse.json());
-    };
-   
     return (
      <Fragment>
         <div ref={cyContainerRef} style={{backgroundColor: 'black', width: '100%', height: '90vh'}}></div>

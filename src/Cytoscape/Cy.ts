@@ -1,12 +1,15 @@
 import cytoscape, { EdgeSingular, EventObject, LayoutOptions, NodeSingular, Position } from "cytoscape";
 import { Core } from "cytoscape";
+import { ArtistDefinition } from "../App";
 
 export class Cytoscape {
     cy:Core;
     layoutOptions: LayoutOptions;
+    areaValue: string;
 
-    constructor(graphRef: HTMLDivElement, clickHandler:(e:EventObject) => void,) {
-
+    // clickHandler:(e:EventObject) => void,
+    constructor(graphRef: HTMLDivElement, areaValue: string) {
+        this.areaValue = areaValue;
         this.layoutOptions = {
             name: 'breadthfirst',
             fit: true, // whether to fit the viewport to the graph
@@ -32,12 +35,7 @@ export class Cytoscape {
 
         this.cy = cytoscape({
             container: graphRef,
-            elements: [
-              { data: { id: 'gryffindor'} },
-              { data: { id: 'hufflepuff' } },
-              { data: { id: 'ravenclaw' } },
-              { data: { id: 'slytherin' } },
-            ],
+            elements: [],
             style: [
               {
                 selector: 'node',
@@ -93,20 +91,21 @@ export class Cytoscape {
             pixelRatio: 'auto'
           })
 
-          this.cy.on('tap', 'node', function(evt: EventObject){
+          /*this.cy.on('tap', 'node', function(evt: EventObject){
             clickHandler(evt);
-          });
+          });*/
     }
 
-    addCharactersNodesAndEdge = (characters: any, initNodeId: string) => {
+    addArtistNodesAndEdge = (artistList: Array<ArtistDefinition>, initNodeId: string) => {
       const nodes: Array<NodeSingular> = [];
       const edges: Array<EdgeSingular> = [];
-      characters.forEach((element: any, index: number) => {
+      this.cy.add([{data: { id: initNodeId}}]);
+      artistList.forEach((artist: ArtistDefinition) => {
       this.cy.add([
-        {group: 'nodes', data: { id: element.name }}, 
+        {group: 'nodes', data: { id: artist.name }}, 
         {group: 'edges', data: {
-          id: 'edge-' + index.toString() + "-" + element.name, 
-          source: initNodeId, target: element.name }, 
+          id: 'edge-' + artist.id + "-" + artist.name, 
+          source: initNodeId, target: artist.name }, 
           classes:'autorotate' 
         }
       ]);
