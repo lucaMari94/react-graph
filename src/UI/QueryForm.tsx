@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { ChangeEvent, FC, FormEvent } from 'react';
 import { Button, TextField } from '@mui/material';
+import React from 'react';
 
 interface QueryFormProps{
     areaValue:string

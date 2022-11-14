@@ -2,6 +2,7 @@ import { EventObject } from "cytoscape"
 import { FC, Fragment, useCallback, useEffect, useRef } from "react"
 import { ArtistDefinition } from "../App";
 import { Cytoscape } from "../Cytoscape/Cy";
+import React from 'react';
 
 interface GraphRenderProps{
   areaValue: string;
