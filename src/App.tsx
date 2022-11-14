@@ -1,5 +1,4 @@
 import * as React from 'react';
-import GraphRender from './UI/GraphVisualization';
 import TableDataVisualization from './UI/TableDataVisualization';
 import { SearchAppBar } from './UI/AppBar';
 import QueryForm from './UI/QueryForm';
@@ -8,6 +7,7 @@ import { EventObject } from 'cytoscape';
 import { Container } from '@mui/material';
 import { ArtistDefinition } from './utils/definations';
 import ChartVisualization from './UI/ChartVisualization';
+import GraphVisualization from './UI/GraphVisualization';
 
 function App() {
 
@@ -60,12 +60,11 @@ function App() {
           />
 
           <TableDataVisualization
-            areaValue={areaValue} 
             artistList={artistList}
             countTotalArtist={countTotalArtist}
           />
 
-          <GraphRender 
+          <GraphVisualization 
             areaValue={areaValue} 
             artistList={artistList}
             expandNode={handleSubmit}

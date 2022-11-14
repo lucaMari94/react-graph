@@ -14,7 +14,6 @@ import Paper from '@mui/material/Paper';
 import { ArtistDefinition } from '../utils/definations';
 
 interface TableDataVisualizationProps{
-    areaValue:string;
     artistList: Array<ArtistDefinition>;
     countTotalArtist: number;
 }
@@ -45,7 +44,7 @@ const TableDataVisualization:FC<TableDataVisualizationProps> = (props:TableDataV
                 </TableHead>
                 <TableBody>
                     {props.artistList.map((artist: ArtistDefinition, i: number) => (
-                        <TableRow key={artist.name} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                        <TableRow key={artist.id + "-" + i} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                             <TableCell component="th" scope="row">
                                 {i}
                             </TableCell>
