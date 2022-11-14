@@ -33,29 +33,27 @@ const QueryForm:FC<QueryFormProps> = (props:QueryFormProps) => {
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          <Typography>Search</Typography>
+          <Typography>Queries MusicBrainz</Typography>
         </AccordionSummary>
         <AccordionDetails>
-            <form onSubmit={props.handleSubmit}>
-              <FormControl fullWidth size="small">
-                <InputLabel id="area-select-label">Area</InputLabel>
-                <Select
-                  labelId="area-select-label"
-                  id="area-select"
-                  label="Area"
-                  value={props.areaValue}
-                  onChange={onAreaChange}
-                >
-                  {countryList.map((country) => {        
-                  return <MenuItem key={country} value={country} id={country}>{country}</MenuItem>
-                  })}
-                </Select>
-              </FormControl>
-              <Button sx={{m:1}} type="submit" color="primary" variant="contained" size="medium">Search</Button>
-              <Button sx={{m:1}} color="warning" onClick={handleReset} size="medium">Reset</Button>
-
-               
-            </form>
+          <form onSubmit={props.handleSubmit}>
+            <FormControl fullWidth size="small">
+              <InputLabel id="area-select-label">Area</InputLabel>
+              <Select
+                labelId="area-select-label"
+                id="area-select"
+                label="Area"
+                value={props.areaValue}
+                onChange={onAreaChange}
+              >
+                {countryList.map((country) => {        
+                return <MenuItem key={country} value={country} id={country}>{country}</MenuItem>
+                })}
+              </Select>
+            </FormControl>
+            <Button sx={{m:1}} type="submit" color="primary" variant="contained" size="medium">Search</Button>
+            <Button sx={{m:1}} color="warning" onClick={handleReset} size="medium">Reset</Button>
+          </form>
         </AccordionDetails>
       </Accordion>
     </div>

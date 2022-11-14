@@ -42,7 +42,7 @@ const GraphRender:FC<GraphRenderProps> = (props:GraphRenderProps) => {
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          <Typography>Graph visualization</Typography>
+          <Typography>Graph Visualization</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <div ref={cyContainerRef} style={{backgroundColor: 'black', width: '100%', height: '50vh'}}></div>
