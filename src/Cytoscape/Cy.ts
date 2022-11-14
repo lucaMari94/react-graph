@@ -5,10 +5,8 @@ import { ArtistDefinition } from '../utils/definations';
 export class Cytoscape {
     cy:Core;
     layoutOptions: LayoutOptions;
-    areaValue: string;
 
-    constructor(graphRef: HTMLDivElement, areaValue: string, clickHandler:(e:EventObject) => void) {
-        this.areaValue = areaValue;
+    constructor(graphRef: HTMLDivElement, clickHandler:(e:EventObject) => void) {
         this.layoutOptions = {
             name: 'breadthfirst',
             fit: true, // whether to fit the viewport to the graph

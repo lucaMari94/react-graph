@@ -19,8 +19,8 @@ const GraphVisualization:FC<GraphVisualizationProps> = (props:GraphVisualization
    
      // use Callback for init Cytoscape
      const cyContainerRef = useCallback((cyContainer:HTMLDivElement)=>{
-      if(cyContainer!==null && props.areaValue !== ""){
-        graphRef.current = new Cytoscape(cyContainer, props.areaValue, nodeClickHandler);
+      if(cyContainer!==null){
+        graphRef.current = new Cytoscape(cyContainer, nodeClickHandler);
       }
     },[]);
 
@@ -44,8 +44,6 @@ const GraphVisualization:FC<GraphVisualizationProps> = (props:GraphVisualization
       evt.preventDefault();
       props.expandNode(evt);
     };
-
-   
 
     return (
       <div>
