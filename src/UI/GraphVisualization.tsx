@@ -17,9 +17,15 @@ const GraphVisualization:FC<GraphVisualizationProps> = (props:GraphVisualization
     // graph reference: div to graph
     const graphRef = useRef<Cytoscape>();
    
+     // use Callback for init Cytoscape
+     const cyContainerRef = useCallback((cyContainer:HTMLDivElement)=>{
+      if(cyContainer!==null && props.areaValue !== ""){
+        graphRef.current = new Cytoscape(cyContainer, props.areaValue, nodeClickHandler);
+      }
+    },[]);
+
     // use Effect for update graph with new nodes and edges (artist)
     useEffect( () => {
-      
       if(graphRef.current && props.areaValue !== ""){
         // Add Artist Nodes And Edge
         graphRef.current!.addArtistNodesAndEdge(props.artistList, props.areaValue);
@@ -39,11 +45,7 @@ const GraphVisualization:FC<GraphVisualizationProps> = (props:GraphVisualization
       props.expandNode(evt);
     };
 
-    const cyContainerRef = useCallback((cyContainer:HTMLDivElement)=>{
-      if(cyContainer!==null && props.areaValue !== ""){
-        graphRef.current = new Cytoscape(cyContainer, props.areaValue, nodeClickHandler);
-      }
-    },[props.artistList]);
+   
 
     return (
       <div>
