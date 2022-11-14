@@ -54,6 +54,7 @@ function App() {
             countTotalArtist={countTotalArtist}
             handleSubmit={handleSubmit}
             handleReset={handleReset}
+            artistList={artistList}
           />
 
           <TableDataVisualization

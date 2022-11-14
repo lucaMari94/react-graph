@@ -8,13 +8,15 @@ import { Button, FormControl, InputLabel, MenuItem, Select } from '@mui/material
 import React from 'react';
 import { countryList } from '../utils/countryList';
 import { SelectChangeEvent } from '@mui/material';
+import { ArtistDefinition } from '../utils/definations';
 
 interface QueryFormProps{
     areaValue:string
     setAreaValue: (area : string) => void
     countTotalArtist: number;
-    handleSubmit: (event: FormEvent<HTMLFormElement>) => void
-    handleReset: (event: FormEvent<HTMLButtonElement>) => void
+    handleSubmit: (event: FormEvent<HTMLFormElement>) => void;
+    handleReset: (event: FormEvent<HTMLButtonElement>) => void;
+    artistList: Array<ArtistDefinition>;
 }
 
 const QueryForm:FC<QueryFormProps> = (props:QueryFormProps) => {
@@ -38,6 +40,7 @@ const QueryForm:FC<QueryFormProps> = (props:QueryFormProps) => {
             <FormControl fullWidth size="small">
               <InputLabel id="area-select-label">Area</InputLabel>
               <Select
+                disabled={props.countTotalArtist > 0}
                 labelId="area-select-label"
                 id="area-select"
                 label="Area"
@@ -50,7 +53,7 @@ const QueryForm:FC<QueryFormProps> = (props:QueryFormProps) => {
               </Select>
             </FormControl>
             <Button sx={{m:1}} disabled={props.countTotalArtist > 0} type="submit" color="primary" variant="contained" size="medium">Search</Button>
-            <Button sx={{m:1}} disabled={props.countTotalArtist === 0} type="submit" color="success" variant="contained" size="medium">Add 25 Artist</Button>
+            <Button sx={{m:1}} disabled={props.countTotalArtist === 0 || props.artistList.length === props.countTotalArtist} type="submit" color="success" variant="contained" size="medium">Add 25 Artist</Button>
             <Button sx={{m:1}} color="warning" onClick={props.handleReset} size="medium">Reset All</Button>
           </form>
           {props.countTotalArtist !== 0 && <p>Found: {props.countTotalArtist}</p>}
