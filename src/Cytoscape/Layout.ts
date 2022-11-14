@@ -1,6 +1,6 @@
-import { NodeSingular } from "cytoscape";
+import { LayoutOptions, NodeSingular, Position } from "cytoscape";
 
-export const concetricLayout = {
+export const concetricLayout: LayoutOptions = {
     name: 'concentric', // breadthfirst, circle, 
     fit: true, // whether to fit the viewport to the graph
     directed: true, // whether the tree is directed downwards (or edges can point in any direction if false)
