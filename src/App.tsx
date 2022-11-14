@@ -25,8 +25,8 @@ function App() {
 
   const [areaValue, setAreaValue] = useState<string>("");
   const [artistList, setArtistList] = useState<Array<ArtistDefinition>>([]);
-  const httpCall = async (area: string) => {
-      const url: string = "https://musicbrainz.org/ws/2/artist?query=area:" + area + "&limit=20&fmt=json";
+  const httpCall = async (area: string, offset : number = 0) => {
+      const url: string = "https://musicbrainz.org/ws/2/artist?query=area:" + area + "&offset=" + offset + "&fmt=json";
       const httpResponse: Response = await fetch(url, { mode: "cors" });
       if (httpResponse.status !== 200) {
         throw new Error( "Error");
@@ -37,11 +37,22 @@ function App() {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if(areaValue !== ""){
-      httpCall(areaValue)
-      .then((res)=>{
-        setArtistList(res.artists);
-      })
-      .catch((error) => {
+      let artistListArray: Array<ArtistDefinition> = [];
+      let count : number = 0;
+      httpCall(areaValue).then(async (res)=>{
+        artistListArray.push(...res.artists);
+        /*const count = res.count; 
+        while (count >= artistListArray.length) {
+          // await new Promise((resolve) => setTimeout(resolve, 500)); 
+          httpCall(areaValue, artistListArray.length).then((res)=>{
+            artistListArray.push(...res.artists);
+            console.log(artistListArray);
+          }).catch((error) => {
+            console.error(error);
+          });
+        }*/
+        setArtistList(artistListArray)
+      }).catch((error) => {
         console.error(error);
       });
     }

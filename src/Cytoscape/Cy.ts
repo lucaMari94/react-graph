@@ -42,7 +42,8 @@ export class Cytoscape {
                 css: {
                   'label': 'data(id)',
                   "text-background-opacity": 0.5,
-                  "text-background-color": "white"
+                  "text-background-color": "white",
+                  'background-color': '#1ec8ff',
                 }
               },
               {
