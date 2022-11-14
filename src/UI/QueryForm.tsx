@@ -52,7 +52,7 @@ const QueryForm:FC<QueryFormProps> = (props:QueryFormProps) => {
                 })}
               </Select>
             </FormControl>
-            <Button sx={{m:1}} disabled={props.countTotalArtist > 0} type="submit" color="primary" variant="contained" size="medium">Search</Button>
+            <Button sx={{m:1}} disabled={props.countTotalArtist > 0 || props.areaValue === ""} type="submit" color="primary" variant="contained" size="medium">Search</Button>
             <Button sx={{m:1}} disabled={props.countTotalArtist === 0 || props.artistList.length === props.countTotalArtist} type="submit" color="success" variant="contained" size="medium">Add 25 Artist</Button>
             <Button sx={{m:1}} color="warning" onClick={props.handleReset} size="medium">Reset All</Button>
           </form>
