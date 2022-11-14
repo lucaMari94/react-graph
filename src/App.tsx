@@ -7,6 +7,7 @@ import { FormEvent, useState } from 'react';
 import { EventObject } from 'cytoscape';
 import { Container } from '@mui/material';
 import { ArtistDefinition } from './utils/definations';
+import ChartVisualization from './UI/ChartVisualization';
 
 function App() {
 
@@ -59,6 +60,8 @@ function App() {
             artistList={artistList}
             handleSubmit={handleSubmit}
           />
+
+          <ChartVisualization/>
       </Container>
       
   </React.Fragment>

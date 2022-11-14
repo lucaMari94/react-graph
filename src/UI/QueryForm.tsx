@@ -8,7 +8,6 @@ import { Button, FormControl, InputLabel, MenuItem, Select } from '@mui/material
 import React from 'react';
 import { countryList } from '../utils/countryList';
 import { SelectChangeEvent } from '@mui/material';
-import { isPropertyAccessChain } from 'typescript';
 
 interface QueryFormProps{
     areaValue:string
