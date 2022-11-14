@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -63,14 +62,8 @@ export const SearchAppBar : FC<SearchAppBarProps> = (props:SearchAppBarProps) =>
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}>
-            Harry Potter Graph
+            MusicBrainz Graph
           </Typography>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase placeholder="Search…" inputProps={{ 'aria-label': 'search' }}/>
-          </Search>
         </Toolbar>
       </AppBar>
     </Box>
