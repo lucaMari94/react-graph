@@ -1,18 +1,23 @@
-import { EventObject } from "cytoscape"
 import { FC, useCallback, useEffect, useRef } from "react"
-import { ArtistDefinition } from '../utils/definitions'
 import { Cytoscape } from "../Cytoscape/Cy";
 import React from 'react';
 import { Accordion, AccordionDetails, AccordionSummary, Typography } from "@mui/material";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { RootState } from "../store/store";
+import { useDispatch, useSelector } from "react-redux";
+import { EventObject } from "cytoscape";
+import { add, setTotal } from "../store/artistSlice";
+import { get25ArtistByCountry } from "../utils/http";
 
 interface GraphVisualizationProps{
   areaValue: string;
-  artistList: Array<ArtistDefinition>;
-  clickNodeHandler: (event: EventObject) => void;
 }
 
 const GraphVisualization:FC<GraphVisualizationProps> = (props:GraphVisualizationProps) => {
+    const artistList = useSelector((state: RootState) => state.artist.artistList);
+    
+    const dispatch = useDispatch();
+    
     // graph reference: div to graph
     const graphRef = useRef<Cytoscape>();
 
@@ -23,27 +28,37 @@ const GraphVisualization:FC<GraphVisualizationProps> = (props:GraphVisualization
       }
     },[]);
 
-    useEffect( () => {
-      graphRef.current!.cy.removeAllListeners();
-      graphRef.current!.cy.on('tap', 'node', function(event: EventObject){
-        props.clickNodeHandler(event);
-      });
-    }, [props]);
-   
+   const clickNodeHandler = useCallback((event: EventObject) => {
+      event.preventDefault();
+      if(props.areaValue !== ""){
+        get25ArtistByCountry(props.areaValue, artistList.length).then((res: any)=>{
+          dispatch(setTotal(res.count));
+          dispatch(add(res.artists));
+        }).catch((error: Error) => {
+          console.error(error);
+        });
+      }
+    }, [artistList.length, props.areaValue, dispatch]);
+
+  
     // use Effect for update graph with new nodes and edges (artist)
     useEffect( () => {
       if(graphRef.current && props.areaValue !== ""){
+        graphRef.current!.cy.removeAllListeners();
+        graphRef.current!.removeAllNodes();
         // Add Artist Nodes And Edge
-        graphRef.current!.addArtistNodesAndEdge(props.artistList, props.areaValue);
+        graphRef.current!.addArtistNodesAndEdge(artistList, props.areaValue);
+        graphRef.current!.cy.on('tap', 'node', function(event: EventObject){
+          clickNodeHandler(event);
+        });
         graphRef.current!.cy.layout(graphRef.current!.layoutOptions).run();
       } else {
         if(graphRef.current) {
-          // props.areaValue is empty remove all node (reset all)
           graphRef.current!.removeAllNodes();
           graphRef.current!.cy.layout(graphRef.current!.layoutOptions).run();
         }
       }
-    }, [props]);
+    }, [artistList, props.areaValue, clickNodeHandler]);
 
     return (
       <div>

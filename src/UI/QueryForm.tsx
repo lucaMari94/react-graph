@@ -8,19 +8,42 @@ import { Button, FormControl, InputLabel, MenuItem, Select } from '@mui/material
 import React from 'react';
 import { countryList } from '../utils/countryList';
 import { SelectChangeEvent } from '@mui/material';
-import { ArtistDefinition } from '../utils/definitions';
+import { get25ArtistByCountry } from '../utils/http';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../store/store';
+import { add, removeAll, setTotal } from '../store/artistSlice';
 
 interface QueryFormProps{
     areaValue:string
     setAreaValue: (area : string) => void;
-    countTotalArtist: number;
-    handleSubmit: (event: FormEvent<HTMLFormElement>) => void;
-    handleReset: (event: FormEvent<HTMLButtonElement>) => void;
-    artistList: Array<ArtistDefinition>;
     selectChangeHandler: (event: SelectChangeEvent) => void;
 }
 
 const QueryForm:FC<QueryFormProps> = (props:QueryFormProps) => {
+
+  const artistList = useSelector((state: RootState) => state.artist.artistList);
+  const countTotalArtist = useSelector((state: RootState) => state.artist.total);
+  
+  const dispatch = useDispatch();
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if(props.areaValue !== ""){
+      get25ArtistByCountry(props.areaValue, artistList.length).then((res: any)=>{
+        dispatch(setTotal(res.count));
+        dispatch(add(res.artists));
+      }).catch((error: Error) => {
+        console.error(error);
+      });
+    }
+  }
+
+  const handleReset = () => {
+    props.setAreaValue("");
+    dispatch(removeAll());
+    dispatch(setTotal(0));
+  }
+
   return (
     <div>
       <Accordion>
@@ -32,27 +55,26 @@ const QueryForm:FC<QueryFormProps> = (props:QueryFormProps) => {
           <Typography>Queries MusicBrainz</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <form onSubmit={props.handleSubmit}>
+          <form onSubmit={handleSubmit}>
             <FormControl fullWidth size="small">
               <InputLabel id="area-select-label">Country</InputLabel>
               <Select
-                disabled={props.countTotalArtist > 0}
+                disabled={countTotalArtist > 0}
                 labelId="area-select-label"
                 id="area-select"
                 label="Country"
                 value={props.areaValue}
-                onChange={props.selectChangeHandler}
-              >
-                {countryList.map((country) => {        
-                  return <MenuItem key={country} value={country} id={country}>{country}</MenuItem>
-                })}
+                onChange={props.selectChangeHandler}>
+                  {countryList.map((country) => {        
+                    return <MenuItem key={country} value={country} id={country}>{country}</MenuItem>
+                  })}
               </Select>
             </FormControl>
-            <Button sx={{m:1}} disabled={props.countTotalArtist > 0 || props.areaValue === ""} type="submit" color="primary" variant="contained" size="medium">Search</Button>
-            <Button sx={{m:1}} disabled={props.countTotalArtist === 0 || props.artistList.length === props.countTotalArtist} type="submit" color="success" variant="contained" size="medium">Add 25 Artist</Button>
-            <Button sx={{m:1}} color="warning" onClick={props.handleReset} size="medium">Reset All</Button>
+            <Button sx={{m:1}} disabled={countTotalArtist > 0 || props.areaValue === ""} type="submit" color="primary" variant="contained" size="medium">Search</Button>
+            <Button sx={{m:1}} disabled={countTotalArtist === 0 || artistList.length === countTotalArtist} type="submit" color="success" variant="contained" size="medium">Add 25 Artist</Button>
+            <Button sx={{m:1}} color="warning" onClick={handleReset} size="medium">Reset All</Button>
           </form>
-          {props.countTotalArtist !== 0 && <p>Found: {props.countTotalArtist}</p>}
+          {countTotalArtist !== 0 && <p>Found: {countTotalArtist}</p>}
         </AccordionDetails>
       </Accordion>
     </div>
