@@ -28,7 +28,7 @@ const GraphVisualization:FC<GraphVisualizationProps> = (props:GraphVisualization
       graphRef.current!.cy.on('tap', 'node', function(event: EventObject){
         props.clickNodeHandler(event);
       });
-    }, [props.artistList]);
+    }, [props]);
    
     // use Effect for update graph with new nodes and edges (artist)
     useEffect( () => {
@@ -43,7 +43,7 @@ const GraphVisualization:FC<GraphVisualizationProps> = (props:GraphVisualization
           graphRef.current!.cy.layout(graphRef.current!.layoutOptions).run();
         }
       }
-    }, [props.artistList]);
+    }, [props]);
 
     return (
       <div>
