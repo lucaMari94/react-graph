@@ -4,7 +4,7 @@ import { SearchAppBar } from './UI/AppBar';
 import QueryForm from './UI/QueryForm';
 import { FormEvent, useState } from 'react';
 import { EventObject } from 'cytoscape';
-import { Container } from '@mui/material';
+import { Container, SelectChangeEvent } from '@mui/material';
 import { ArtistDefinition } from './utils/definitions';
 import ChartVisualization from './UI/ChartVisualization';
 import GraphVisualization from './UI/GraphVisualization';
@@ -15,6 +15,10 @@ function App() {
   const [areaValue, setAreaValue] = useState<string>("");
   const [artistList, setArtistList] = useState<Array<ArtistDefinition>>([]);
   const [countTotalArtist, setCountTotalArtist] = useState<number>(0);
+
+  const selectChangeHandler = (event: SelectChangeEvent) => {
+    setAreaValue(event.target.value);
+  };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -30,7 +34,7 @@ function App() {
     }
   }
 
-  const expandNode = (event: EventObject) => {
+  const clickNodeHandler = (event: EventObject) => {
     event.preventDefault();
     if(areaValue !== ""){
       get25ArtistByCountry(areaValue, artistList.length).then((res: any)=>{
@@ -62,6 +66,7 @@ function App() {
             handleSubmit={handleSubmit}
             handleReset={handleReset}
             artistList={artistList}
+            selectChangeHandler={selectChangeHandler}
           />
 
           <TableDataVisualization
@@ -72,7 +77,7 @@ function App() {
           <GraphVisualization 
             areaValue={areaValue}
             artistList={artistList}
-            expandNode={expandNode}
+            clickNodeHandler={clickNodeHandler}
           />
 
           <ChartVisualization/>

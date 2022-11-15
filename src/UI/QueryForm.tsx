@@ -17,15 +17,10 @@ interface QueryFormProps{
     handleSubmit: (event: FormEvent<HTMLFormElement>) => void;
     handleReset: (event: FormEvent<HTMLButtonElement>) => void;
     artistList: Array<ArtistDefinition>;
+    selectChangeHandler: (event: SelectChangeEvent) => void;
 }
 
 const QueryForm:FC<QueryFormProps> = (props:QueryFormProps) => {
-
-  // change handler for set value of country States with selected country
-  const onAreaChange = (event: SelectChangeEvent)=> {
-    props.setAreaValue(event.target.value);
-  }
-
   return (
     <div>
       <Accordion>
@@ -46,7 +41,7 @@ const QueryForm:FC<QueryFormProps> = (props:QueryFormProps) => {
                 id="area-select"
                 label="Country"
                 value={props.areaValue}
-                onChange={onAreaChange}
+                onChange={props.selectChangeHandler}
               >
                 {countryList.map((country) => {        
                   return <MenuItem key={country} value={country} id={country}>{country}</MenuItem>

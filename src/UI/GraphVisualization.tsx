@@ -9,21 +9,27 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 interface GraphVisualizationProps{
   areaValue: string;
   artistList: Array<ArtistDefinition>;
-  expandNode: (event: EventObject) => void;
+  clickNodeHandler: (event: EventObject) => void;
 }
 
 const GraphVisualization:FC<GraphVisualizationProps> = (props:GraphVisualizationProps) => {
-
     // graph reference: div to graph
     const graphRef = useRef<Cytoscape>();
-   
-     // use Callback for init Cytoscape
-     const cyContainerRef = useCallback((cyContainer:HTMLDivElement)=>{
+
+    // use Callback for init Cytoscape
+    const cyContainerRef = useCallback((cyContainer:HTMLDivElement)=>{
       if(cyContainer!==null){
-        graphRef.current = new Cytoscape(cyContainer, nodeClickHandler);
+        graphRef.current = new Cytoscape(cyContainer);
       }
     },[]);
 
+    useEffect( () => {
+      graphRef.current!.cy.removeAllListeners();
+      graphRef.current!.cy.on('tap', 'node', function(event: EventObject){
+        props.clickNodeHandler(event);
+      });
+    }, [props.artistList]);
+   
     // use Effect for update graph with new nodes and edges (artist)
     useEffect( () => {
       if(graphRef.current && props.areaValue !== ""){
@@ -38,12 +44,6 @@ const GraphVisualization:FC<GraphVisualizationProps> = (props:GraphVisualization
         }
       }
     }, [props.artistList]);
-
-    // event when click to cytoscape node: expand node with 25 artist (http call)
-    const nodeClickHandler = (evt:EventObject) => {
-      evt.preventDefault();
-      // props.expandNode(evt);
-    };
 
     return (
       <div>

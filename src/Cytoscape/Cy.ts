@@ -8,7 +8,7 @@ export class Cytoscape {
     cy:Core;
     layoutOptions: LayoutOptions;
 
-    constructor(graphRef: HTMLDivElement, clickHandler:(e:EventObject) => void) {
+    constructor(graphRef: HTMLDivElement) {
         this.layoutOptions = concetricLayout;
         this.cy = cytoscape({
             container: graphRef,
@@ -40,10 +40,6 @@ export class Cytoscape {
             pixelRatio: 'auto',
             style: cytoscapeStyle,
           })
-
-          this.cy.on('tap', 'node', function(evt: EventObject){
-            clickHandler(evt);
-          });
     }
 
     addArtistNodesAndEdge = (artistList: Array<ArtistDefinition>, initNodeId: string) => {
@@ -64,6 +60,7 @@ export class Cytoscape {
     }
 
     removeAllNodes = () => {
+      this.cy.removeAllListeners();
       this.cy.elements().remove();
     }
    
