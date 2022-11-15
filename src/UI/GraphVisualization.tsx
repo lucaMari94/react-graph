@@ -1,6 +1,6 @@
 import { EventObject } from "cytoscape"
 import { FC, useCallback, useEffect, useRef } from "react"
-import { ArtistDefinition } from '../utils/definations'
+import { ArtistDefinition } from '../utils/definitions'
 import { Cytoscape } from "../Cytoscape/Cy";
 import React from 'react';
 import { Accordion, AccordionDetails, AccordionSummary, Typography } from "@mui/material";

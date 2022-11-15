@@ -5,7 +5,7 @@ import QueryForm from './UI/QueryForm';
 import { FormEvent, useState } from 'react';
 import { EventObject } from 'cytoscape';
 import { Container } from '@mui/material';
-import { ArtistDefinition } from './utils/definations';
+import { ArtistDefinition } from './utils/definitions';
 import ChartVisualization from './UI/ChartVisualization';
 import GraphVisualization from './UI/GraphVisualization';
 import { get25ArtistByCountry } from './utils/http';

@@ -1,6 +1,6 @@
 import cytoscape, { EventObject, LayoutOptions, NodeSingular, Position } from "cytoscape";
 import { Core } from "cytoscape";
-import { ArtistDefinition } from '../utils/definations';
+import { ArtistDefinition } from '../utils/definitions';
 import { concetricLayout } from "./Layout";
 import { cytoscapeStyle } from "./Style";
 

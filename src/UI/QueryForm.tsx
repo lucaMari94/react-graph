@@ -8,7 +8,7 @@ import { Button, FormControl, InputLabel, MenuItem, Select } from '@mui/material
 import React from 'react';
 import { countryList } from '../utils/countryList';
 import { SelectChangeEvent } from '@mui/material';
-import { ArtistDefinition } from '../utils/definations';
+import { ArtistDefinition } from '../utils/definitions';
 
 interface QueryFormProps{
     areaValue:string
